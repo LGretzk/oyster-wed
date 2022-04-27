@@ -1,3 +1,6 @@
+require_relative 'journey'
+require_relative 'station'
+
 class Oystercard
 
   attr_reader :balance, :journey, :journey_history
@@ -21,6 +24,7 @@ class Oystercard
     fail "Not enough funds" if not_enough?
     fail 'Oyster already touched in' if in_journey?
     @journey[:in] = entry_station
+    #@journey_test = Journey.new
   end
 
   def touch_out(exit_station)
