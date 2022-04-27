@@ -27,7 +27,8 @@ class Oystercard
     fail 'Oyster not touched in' if !in_journey?
     deduct
     @journey[:out] = exit_station 
-    #@journey_history << @journey
+    @journey_history << @journey
+    @journey = {in: :nil, out: nil}
   end
 
   def in_journey?
