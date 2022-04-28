@@ -2,8 +2,9 @@ class Journey
 
   attr_reader :entry_station, :exit_station, :journey_hash
 
+  FARE = 1
+
   def initialize
-    @entry_station = nil
     @journey_hash = {in: nil, out: nil}
   end 
 
@@ -17,6 +18,10 @@ class Journey
 
   def in_journey?
     @journey_hash[:in] != nil && @journey_hash[:out] == nil
+  end
+
+  def calculate_fare
+    return FARE if !in_journey?
   end
 
 end 

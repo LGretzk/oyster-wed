@@ -31,6 +31,21 @@ let(:entry_station){ double :exit_station }
     expect(subject.journey_hash).to eq ({in: :entry_station, out: :exit_station})
   end
 
+  it 'add_entry_station changes in_journey? to true' do
+    subject.add_entry_station(:entry_station)
+    expect(subject.in_journey?).to be true
+  end
 
+  it 'add_exit_station changes in_journey? to false' do
+    subject.add_entry_station(:entry_station)
+    subject.add_exit_station(:exit_station)
+    expect(subject.in_journey?).to be false
+  end
+
+  it 'returns the minimum fare if the journey is completed' do
+    subject.add_entry_station(:entry_station)
+    subject.add_exit_station(:exit_station)
+    expect(subject.calculate_fare).to eq Journey::FARE
+  end
 
 end 

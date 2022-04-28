@@ -33,17 +33,11 @@ describe Oystercard do
       expect(subject).to respond_to(:touch_in).with(1).argument
     end
 
-    it 'changes in_journey? to true' do
-      subject.top_up(1)
-      subject.touch_in(:entry_station)
-      expect(subject.in_journey?).to be true
-    end
-
-    it 'raises error if card touched_in twice' do
-      subject.top_up(1)
-      subject.touch_in(:entry_station)
-      expect{subject.touch_in(:entry_station)}.to raise_error 'Oyster already touched in'
-    end
+    # it 'raises error if card touched_in twice' do
+    #   subject.top_up(1)
+    #   subject.touch_in(:entry_station)
+    #   expect{subject.touch_in(:entry_station)}.to raise_error 'Oyster already touched in'
+    # end
 
     it "raises error when trying to touch_in with less than £1" do
       expect { subject.touch_in(entry_station) }.to raise_error "Not enough funds"
@@ -56,13 +50,13 @@ describe Oystercard do
       expect(subject).to respond_to(:touch_out).with(1).argument
     end
 
-    it 'changes in_journey? to false' do
-      expect(subject.in_journey?).to be false
-    end
+    # it 'changes in_journey? to false' do
+    #   expect(subject.in_journey?).to be false
+    # end
 
-    it 'rasises error at touch_out if card not in_journey?' do
-      expect{subject.touch_out(:exit_station)}.to raise_error 'Oyster not touched in' 
-    end
+    # it 'rasises error at touch_out if card not in_journey?' do
+    #   expect{subject.touch_out(:exit_station)}.to raise_error 'Oyster not touched in' 
+    # end
 
     it "deducts £1" do
       subject.top_up(1)
@@ -84,12 +78,12 @@ describe Oystercard do
       expect(subject.journey_history.last).to eq ({in: :entry_station, out: :exit_station})
     end
 
-    it 'resets the journey hash to nil after touch out' do
-      subject.top_up(10)
-      subject.touch_in(:entry_station)
-      subject.touch_out(:exit_station)
-      expect(subject.journey).to eq ({in: :nil, out: nil})
-    end
+    # it 'resets the journey hash to nil after touch out' do
+    #   subject.top_up(10)
+    #   subject.touch_in(:entry_station)
+    #   subject.touch_out(:exit_station)
+    #   expect(subject.journey).to eq ({in: :nil, out: nil})
+    # end
 
   end
 end

@@ -22,10 +22,14 @@ class Oystercard
 
   def touch_in(entry_station)
     fail "Not enough funds" if not_enough?
+    if !@journey_history.empty?
+      @journey_history << @new_journey.journey_hash
+    else
     #fail 'Oyster already touched in' if @new_journey.in_journey?
     #@journey[:in] = entry_station
-    new_journey
-    @new_journey.add_entry_station(entry_station)
+      new_journey
+      @new_journey.add_entry_station(entry_station)
+    end
   end
 
   def touch_out(exit_station)
