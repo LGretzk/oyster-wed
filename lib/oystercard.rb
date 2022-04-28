@@ -11,7 +11,7 @@ class Oystercard
 
   def initialize
     @balance = 0
-    @journey = {in: nil, out: nil}
+    #@journey = {in: nil, out: nil}
     @journey_history = []
   end
 
@@ -22,24 +22,33 @@ class Oystercard
 
   def touch_in(entry_station)
     fail "Not enough funds" if not_enough?
-    fail 'Oyster already touched in' if in_journey?
-    @journey[:in] = entry_station
-    #@journey_test = Journey.new
+    #fail 'Oyster already touched in' if @new_journey.in_journey?
+    #@journey[:in] = entry_station
+    new_journey
+    @new_journey.add_entry_station(entry_station)
   end
 
   def touch_out(exit_station)
-    fail 'Oyster not touched in' if !in_journey?
+    #fail 'Oyster not touched in' if !in_journey?
     deduct
-    @journey[:out] = exit_station 
-    @journey_history << @journey
-    @journey = {in: :nil, out: nil}
+    @new_journey.add_exit_station(exit_station)
+    #@journey[:out] = exit_station 
+    @journey_history << @new_journey.journey_hash
+    #@journey = {in: :nil, out: nil}
   end
 
-  def in_journey?
-    @journey[:in] != nil && @journey[:out] == nil
+  # def in_journey?
+  #   @journey[:in] != nil && @journey[:out] == nil
+  # end
+
+  def new_journey
+    @new_journey = Journey.new
   end
 
   private
+
+
+
 
   def not_enough?
     @balance < MINIMUM_BALANCE

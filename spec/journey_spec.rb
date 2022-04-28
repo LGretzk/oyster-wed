@@ -4,7 +4,7 @@ describe Journey do
 
 let(:entry_station){ double :entry_station }
 let(:entry_station){ double :exit_station }
-
+ 
   it 'can create new journeys' do
     expect(subject).to be_an_instance_of(Journey)
   end 
@@ -23,6 +23,12 @@ let(:entry_station){ double :exit_station }
 
   it 'adds exit station' do
     expect(subject.add_exit_station(:exit_station)).to eq :exit_station
+  end
+
+  it 'creates a hash with the journey' do
+    subject.add_entry_station(:entry_station)
+    subject.add_exit_station(:exit_station)
+    expect(subject.journey_hash).to eq ({in: :entry_station, out: :exit_station})
   end
 
 
